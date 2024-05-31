@@ -2,19 +2,22 @@ import { BrandColor } from "@/constants/color";
 import { Flex } from "@chakra-ui/react";
 import { Button, InputAdornment, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import AppDialog from "../dialog";
 import CreatePost from "./create-post";
+import { AppContext } from "@/pages/_app";
+import { communitys } from "@/constants/menu";
 
 type Props = {};
 
 const BlogSearchFilter = (props: Props) => {
+  const { userID, community, setCommunity } = useContext(AppContext);
+
   const [search, setSearch] = React.useState("");
-  const [filter, setFilter] = React.useState("");
   const [createPost, setCreatePost] = React.useState<boolean>(false);
 
   const handleChangeFilter = (event: SelectChangeEvent) => {
-    setFilter(event.target.value);
+    setCommunity(event.target.value);
   };
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -47,7 +50,7 @@ const BlogSearchFilter = (props: Props) => {
         <Select
           id="demo-simple-select-standard"
           defaultValue=""
-          value={filter}
+          value={community}
           onChange={handleChangeFilter}
           displayEmpty
           sx={{
@@ -59,14 +62,17 @@ const BlogSearchFilter = (props: Props) => {
           }}
         >
           <MenuItem value="">Community</MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {communitys.map((c) => (
+            <MenuItem value={c} key={c}>
+              {c}
+            </MenuItem>
+          ))}
         </Select>
         <Button
           variant="contained"
           color="success"
           fullWidth
+          disabled={userID == undefined}
           sx={{
             height: "40px",
             width: "105px",
@@ -84,7 +90,7 @@ const BlogSearchFilter = (props: Props) => {
           </Typography>
         </Button>
         <AppDialog open={createPost} setOpen={setCreatePost} sx={{ width: "90vw", maxWidth: "685px" }}>
-          <CreatePost onClose={() => setCreatePost(false)} onClick={() => {}} />
+          <CreatePost onClose={() => setCreatePost(false)} />
         </AppDialog>
       </Flex>
     </Flex>

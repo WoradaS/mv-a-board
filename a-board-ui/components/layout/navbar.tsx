@@ -3,23 +3,19 @@ import { Flex } from "@chakra-ui/react";
 import { AppBar, Avatar, Button, Container, IconButton, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppDrawer from "./drawer";
+import { AppContext } from "@/pages/_app";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const { username } = useContext(AppContext);
+
   const router = useRouter();
   const desktop = useMediaQuery("(min-width:1025px)");
 
-  const [username, setUsername] = useState<string | null>();
   const [drawer, setDrawer] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setUsername(sessionStorage?.getItem("username"));
-    }
-  }, []);
   
   if (router.pathname == "/sign-in") return null;
 
@@ -33,7 +29,7 @@ const Navbar = (props: Props) => {
               <Flex alignItems={"center"} gap={20}>
                 <Avatar sx={{ width: 40, height: 40 }}>{username?.charAt(0)}</Avatar>
                 <Typography fontSize={"16px"} color={BrandColor.White}>
-                  {username} {router.pathname}
+                  {username}
                 </Typography>
               </Flex>
             ) : (

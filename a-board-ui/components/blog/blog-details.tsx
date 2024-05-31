@@ -36,6 +36,7 @@ const BlogDetails = (props: Props) => {
   return (
     <Flex
       direction={"column"}
+      width={"100%"}
       padding={fullDetails ? "0px" : "22px 20px"}
       gap={fullDetails ? 16 : 5}
       onClick={fullDetails ? () => {} : () => router.push(`/blog?blogID=${blogID}`)}
@@ -57,7 +58,9 @@ const BlogDetails = (props: Props) => {
               }}
             >
               {" "}
-              <Avatar sx={{ width: fullDetails ? 48 : 31, height: fullDetails ? 48 : 31 }}>{username.charAt(0)}</Avatar>
+              <Avatar sx={{ width: fullDetails ? 48 : 31, height: fullDetails ? 48 : 31 }}>
+                {(username ?? "Unknown").charAt(0)}
+              </Avatar>
             </Badge>
 
             <Typography fontSize={"14px"} color={fullDetails ? BrandColor.Black : BrandColor.Grey300} fontWeight={500}>

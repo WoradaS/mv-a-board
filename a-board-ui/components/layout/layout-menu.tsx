@@ -1,17 +1,20 @@
 import { BrandColor } from "@/constants/color";
+import { AppContext } from "@/pages/_app";
 import { Flex } from "@chakra-ui/react";
 import { Typography } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 type Props = {
   darkThem?: boolean;
 };
 
 const LayoutMenu = (props: Props) => {
+  const { userID } = useContext(AppContext);
+
   const { darkThem } = props;
 
   const router = useRouter();
-  const username = sessionStorage?.getItem("username");
 
   return (
     <Flex direction={"column"} gap={4}>
@@ -21,7 +24,7 @@ const LayoutMenu = (props: Props) => {
           Home
         </Typography>
       </Flex>
-      {(username ?? "").length > 0 ? (
+      {userID != undefined ? (
         <Flex
           gap={12}
           alignItems={"center"}

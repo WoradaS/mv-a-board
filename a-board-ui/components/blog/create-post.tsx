@@ -1,13 +1,14 @@
 import { BrandColor } from "@/constants/color";
 import { communitys } from "@/constants/menu";
+import { AppContext } from "@/pages/_app";
 import { Flex } from "@chakra-ui/react";
 import { Button, IconButton, MenuItem, Select, TextField, Typography, useMediaQuery } from "@mui/material";
+import axios, { AxiosError } from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 type Props = {
   onClose: () => void;
-  onClick: () => void;
   isEdit?: boolean;
   blogID?: string;
   title?: string;
@@ -18,21 +19,78 @@ type Props = {
 const CreatePost = (props: Props) => {
   const {
     onClose,
-    onClick,
     isEdit,
     blogID,
     title: defaultTitle = "",
     community: defaultCommunity = "",
     description: defaultDescription = "",
   } = props;
+
+  const { userID, setError, setRefresh } = useContext(AppContext);
+
   const desktop = useMediaQuery("(min-width:1024px)");
 
   const [title, setTitle] = useState<string>(defaultTitle);
   const [community, setCommunity] = useState<string>(defaultCommunity);
   const [description, setDescription] = useState<string>(defaultDescription);
 
-  const handlePost = () => {
-    onClick();
+  const handlePost = async () => {
+    try {
+      const body = {
+        userID,
+        community,
+        title,
+        description,
+      };
+      const res = await axios.post("http://localhost:5000/blog", body);
+      console.log(res);
+      setRefresh((prev) => !prev);
+      onClose();
+    } catch (error) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
+      setError({
+        open: true,
+        message: JSON.stringify(err),
+      });
+      alert(JSON.stringify(err.response?.data));
+    }
+  };
+
+  const handlePut = async () => {
+    try {
+      const body = {
+        userID,
+        community,
+        title,
+        description,
+      };
+      const res = await axios.patch("http://localhost:5000/blog/" + blogID, body);
+      console.log(res);
+      setRefresh((prev) => !prev);
+      onClose();
+    } catch (error) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
+      setError({
+        open: true,
+        message: JSON.stringify(err),
+      });
+      alert(JSON.stringify(err.response?.data));
+    }
+  };
+
+  const handleComplete = () => {
+    if (title?.length == 0 || community?.length == 0 || description?.length == 0) {
+      alert("Please provide complete information.");
+      return;
+    }
+
+    if (!isEdit) {
+      handlePost();
+    } else {
+      handlePut();
+    }
   };
 
   return (
@@ -57,7 +115,7 @@ const CreatePost = (props: Props) => {
         displayEmpty
         value={community}
         fullWidth
-        // onChange={handleChange}
+        onChange={(e) => setCommunity(e.target.value)}
         sx={{
           height: "40px",
           borderRadius: "8px",
@@ -88,7 +146,7 @@ const CreatePost = (props: Props) => {
           },
         }}
         value={title}
-        // onChange={handleChange}
+        onChange={(e) => setTitle(e.target.value)}
       />
       <TextField
         id="outlined2-required"
@@ -104,7 +162,7 @@ const CreatePost = (props: Props) => {
         rows={10}
         multiline
         value={description}
-        // onChange={handleChange}
+        onChange={(e) => setDescription(e.target.value)}
       />
       <Flex direction={desktop ? "row" : "column"} justifyContent={"flex-end"} gap={"14px"}>
         <Button
@@ -137,7 +195,7 @@ const CreatePost = (props: Props) => {
               backgroundColor: BrandColor.Success,
             },
           }}
-          onClick={handlePost}
+          onClick={handleComplete}
         >
           <Typography fontStyle={"Inter"} fontSize={"14px"} fontWeight={500} color={BrandColor.White}>
             {isEdit ? "Confirm" : "Post"}

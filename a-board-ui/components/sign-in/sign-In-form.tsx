@@ -1,12 +1,16 @@
 import { BrandColor } from "@/constants/color";
+import { AppContext } from "@/pages/_app";
 import { Flex } from "@chakra-ui/react";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 type Props = {};
 
 const SignInForm = (props: Props) => {
+  const { setUsername: setAccountUsername, setUserID, setError } = useContext(AppContext);
+
   const router = useRouter();
 
   const [username, setUsername] = useState<string>();
@@ -15,10 +19,37 @@ const SignInForm = (props: Props) => {
     setUsername(event.target.value);
   };
 
-  const onSignIn = () => {
-    sessionStorage?.setItem("username", username ?? "");
-    router.push("/");
+  const onSignIn = async () => {
+    if ((username ?? "").trim()?.length == 0) {
+      alert("Please provide complete information.");
+      return;
+    }
+
+    await axios
+      .post("http://localhost:5000/user", {
+        username,
+      })
+      .then((res) => {
+        console.log(res);
+        setAccountUsername(res.data.username);
+        setUserID(res.data.id);
+        router.push("/");
+      })
+      .catch((error) => {
+        const err = error as AxiosError;
+        console.log(err.response?.data);
+        setError({
+          open: true,
+          message: JSON.stringify(err),
+        });
+        alert(JSON.stringify(err.response?.data));
+      });
   };
+
+  useEffect(() => {
+    setUserID(undefined);
+    setAccountUsername(undefined);
+  }, []);
 
   return (
     <Flex

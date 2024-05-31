@@ -1,11 +1,17 @@
 import { BrandColor } from "@/constants/color";
+import { AppContext } from "@/pages/_app";
 import { Flex } from "@chakra-ui/react";
 import { Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useContext, useState } from "react";
 
-type Props = {};
+type Props = {
+  blogID: string;
+};
 
-const BlogAddComments = (props: Props) => {
+const BlogAddComments = ({ blogID }: Props) => {
+  const { userID, setError, setRefresh } = useContext(AppContext);
+
   const [add, setAdd] = useState<boolean>(false);
 
   const [comment, setComment] = useState<string>();
@@ -17,8 +23,32 @@ const BlogAddComments = (props: Props) => {
   const onAddComments = () => {
     setAdd(true);
   };
-  const onPost = () => {
-    setAdd(false);
+  const onPost = async () => {
+    if (`${blogID}`?.length == 0 || `${userID}`?.length == 0 || comment?.length == 0) {
+      alert("Please provide complete information.");
+      return;
+    }
+
+    try {
+      const body = {
+        blogID,
+        userID,
+        comment,
+      };
+      const res = await axios.post("http://localhost:5000/blog-comment", body);
+      console.log(res);
+      setRefresh((prev) => !prev);
+      setComment(undefined);
+      setAdd(false);
+    } catch (error) {
+      const err = error as AxiosError;
+      console.log(err.response?.data);
+      setError({
+        open: true,
+        message: JSON.stringify(err),
+      });
+      alert(JSON.stringify(err.response?.data));
+    }
   };
 
   if (add) {
@@ -92,9 +122,15 @@ const BlogAddComments = (props: Props) => {
         textTransform: "none",
         "&:hover": {},
       }}
+      disabled={userID == undefined}
       onClick={onAddComments}
     >
-      <Typography fontStyle={"Inter"} fontSize={"14px"} fontWeight={500} color={BrandColor.Success}>
+      <Typography
+        fontStyle={"Inter"}
+        fontSize={"14px"}
+        fontWeight={500}
+        color={userID == undefined ? BrandColor.Grey100 : BrandColor.Success}
+      >
         Add Comments
       </Typography>
     </Button>
