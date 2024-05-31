@@ -4,26 +4,25 @@ Web board for employees to ask questions and express their opinions.
 
 ## Application Architecture.
 
-![](https://github.com/WoradaS/the-sale-campaign/blob/main/preview/architecture.png)
 ![](/preview/architecture.png)
 
 ## Project Screen Shot(s) and Video
 
 case: sign-in
 
-![sign-in.gif](https://github.com/WoradaS/the-sale-campaign/blob/main/preview/sign-in.gif)
+![sign-in.gif](/preview/sign-in.gif)
 
 case: board
 
-![board.gif](https://github.com/WoradaS/the-sale-campaign/blob/main/preview/board.gif)
+![board.gif](/preview/board.gif)
 
 case: create update and delete blog
 
-![create-update-delete.gif](https://github.com/WoradaS/the-sale-campaign/blob/main/preview/create-update-delete.gif)
+![create-update-delete.gif](/preview/create-update-delete.gif)
 
 case: comments
 
-![comment.gif](https://github.com/WoradaS/the-sale-campaign/blob/main/preview/comments.gif)
+![comment.gif](/preview/comment.gif)
 
 ## Libraries and Packages
 
@@ -116,23 +115,19 @@ POST | blog-comment | - | - |{"blogID": 1,"userID": 1, "comment": ""} |Response 
 
 Path: http://localhost:3000/sign-in
 
-![](https://github.com/WoradaS/a-board/blob/main/preview/moblie/sign-in-page.png)
 ![](/preview/moblie/sign-in-page.png)
 
 Path: http://localhost:3000/
 
-![](https://github.com/WoradaS/a-board/blob/main/preview/moblie/home-page.png)
 ![](/preview/moblie/home-page.png)
 
 
 Path: http://localhost:3000/our-blog
 
-![](https://github.com/WoradaS/a-board/blob/main/preview/moblie/our-borad-page.png)
 ![](/preview/moblie/our-borad-page.png)
 
 Path: http://localhost:3000/blog
 
-![](https://github.com/WoradaS/a-board/blob/main/preview/moblie/blog.png)
 ![](/preview/moblie/blog.png)
 
 [More Information about UI](https://github.com/WoradaS/a-board/blob/main/a-board-ui/README.md)
