@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+```bash
+# go to the directory
+$ cd a-board-ui/
+
+# install packages
+$ yarn install
+
+```
 First, run the development server:
 
 ```bash
@@ -16,25 +24,50 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## UI Document
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Sign In
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Path: http://localhost:3000/sign-in
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![](/preview/desktop/sign-in-page.png)
+![](/preview/moblie/sign-in-page.png)
 
-## Learn More
+### Home
+Path: http://localhost:3000/
 
-To learn more about Next.js, take a look at the following resources:
+![](/preview/desktop/home-page.png)
+![](/preview/moblie/home-page.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Our Blog
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Path: http://localhost:3000/our-blog
 
-## Deploy on Vercel
+![](/preview/desktop/our-borad-page.png)
+![](/preview/moblie/our-borad-page.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Create end Update Blog
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![](/preview/desktop/update-post.png)
+![](/preview/moblie/update-post.png)
+
+### Delete Blog
+
+![](/preview/desktop/delete-page.png)
+![](/preview/moblie/delete-page.png)
+
+### Blog
+
+Path: http://localhost:3000/blog
+
+![](/preview/desktop/blog.png)
+![](/preview/moblie/blog.png)
+
+### Comments
+
+![](/preview/desktop/comment.png)
+![](/preview/moblie/comment.png)
+
+### Menu
+
+![](/preview/moblie/menu.png)
