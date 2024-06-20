@@ -1,9 +1,9 @@
+import { UserService } from './../user/user.service';
 import { Injectable } from '@nestjs/common';
 import { CreateBlogCommentDto } from './dto/create-blog-comment.dto';
 import { BlogComment } from './entities/blog-comment.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class BlogCommentService {

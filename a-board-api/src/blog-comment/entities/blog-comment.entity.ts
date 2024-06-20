@@ -12,5 +12,5 @@ export class BlogComment {
   userID: number;
 
   @Column()
-  comment: number;
+  comment: string;
 }
