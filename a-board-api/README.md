@@ -48,6 +48,9 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
+To Visit App:
+Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
+
 ## Test
 
 ```bash
@@ -60,9 +63,7 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
-
-To Visit App:
-Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
+![Coverage](asset/Coverage.png)
 
 ## API Document
 
