@@ -63,7 +63,7 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
-![Coverage](asset/Coverage.png)
+![Coverage](asset/coverage.png)
 
 ## API Document
 
