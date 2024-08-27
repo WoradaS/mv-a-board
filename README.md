@@ -1,4 +1,4 @@
-## A Board (Next.js + NestJS)
+## A Board Test (Next.js + NestJS)
 
 Web board for employees to ask questions and express their opinions.
 
